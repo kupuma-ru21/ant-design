@@ -8,7 +8,8 @@ require (
 	github.com/99designs/gqlgen v0.17.63
 	github.com/google/uuid v1.6.0
 	github.com/hashicorp/go-multierror v1.1.1
-	github.com/mattn/go-sqlite3 v1.14.16
+	github.com/joho/godotenv v1.5.1
+	github.com/lib/pq v1.10.9
 	github.com/vektah/gqlparser/v2 v2.5.21
 )
 
