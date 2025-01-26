@@ -1,4 +1,18 @@
 services:
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - PNPM_HOME=${PNPM_HOME}
+        - PNPM_PATH=${PNPM_PATH}
+        - CLIENT_PORT=${CLIENT_PORT}
+        - GRAPHQL_SCHEMA_URL=${DOCKER_GRAPHQL_SCHEMA_URL}
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    depends_on:
+      - backend
+    restart: always
+
   backend:
     build:
       context: ./backend
