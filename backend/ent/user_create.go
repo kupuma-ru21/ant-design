@@ -3,6 +3,7 @@
 package ent
 
 import (
+	"backend/ent/todo"
 	"backend/ent/user"
 	"context"
 	"errors"
@@ -44,6 +45,21 @@ func (uc *UserCreate) SetNillableID(u *uuid.UUID) *UserCreate {
 		uc.SetID(*u)
 	}
 	return uc
+}
+
+// AddTodoIDs adds the "todos" edge to the Todo entity by IDs.
+func (uc *UserCreate) AddTodoIDs(ids ...uuid.UUID) *UserCreate {
+	uc.mutation.AddTodoIDs(ids...)
+	return uc
+}
+
+// AddTodos adds the "todos" edges to the Todo entity.
+func (uc *UserCreate) AddTodos(t ...*Todo) *UserCreate {
+	ids := make([]uuid.UUID, len(t))
+	for i := range t {
+		ids[i] = t[i].ID
+	}
+	return uc.AddTodoIDs(ids...)
 }
 
 // Mutation returns the UserMutation object of the builder.
@@ -147,6 +163,22 @@ func (uc *UserCreate) createSpec() (*User, *sqlgraph.CreateSpec) {
 	if value, ok := uc.mutation.Password(); ok {
 		_spec.SetField(user.FieldPassword, field.TypeString, value)
 		_node.Password = value
+	}
+	if nodes := uc.mutation.TodosIDs(); len(nodes) > 0 {
+		edge := &sqlgraph.EdgeSpec{
+			Rel:     sqlgraph.O2M,
+			Inverse: false,
+			Table:   user.TodosTable,
+			Columns: []string{user.TodosColumn},
+			Bidi:    false,
+			Target: &sqlgraph.EdgeTarget{
+				IDSpec: sqlgraph.NewFieldSpec(todo.FieldID, field.TypeUUID),
+			},
+		}
+		for _, k := range nodes {
+			edge.Target.Nodes = append(edge.Target.Nodes, k)
+		}
+		_spec.Edges = append(_spec.Edges, edge)
 	}
 	return _node, _spec
 }

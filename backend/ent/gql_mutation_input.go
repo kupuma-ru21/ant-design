@@ -2,16 +2,90 @@
 
 package ent
 
+import (
+	"github.com/google/uuid"
+)
+
+// CreateTodoInput represents a mutation input for creating todos.
+type CreateTodoInput struct {
+	Title       string
+	Description string
+	IsDone      *bool
+	OwnerID     *uuid.UUID
+}
+
+// Mutate applies the CreateTodoInput on the TodoMutation builder.
+func (i *CreateTodoInput) Mutate(m *TodoMutation) {
+	m.SetTitle(i.Title)
+	m.SetDescription(i.Description)
+	if v := i.IsDone; v != nil {
+		m.SetIsDone(*v)
+	}
+	if v := i.OwnerID; v != nil {
+		m.SetOwnerID(*v)
+	}
+}
+
+// SetInput applies the change-set in the CreateTodoInput on the TodoCreate builder.
+func (c *TodoCreate) SetInput(i CreateTodoInput) *TodoCreate {
+	i.Mutate(c.Mutation())
+	return c
+}
+
+// UpdateTodoInput represents a mutation input for updating todos.
+type UpdateTodoInput struct {
+	Title       *string
+	Description *string
+	IsDone      *bool
+	ClearOwner  bool
+	OwnerID     *uuid.UUID
+}
+
+// Mutate applies the UpdateTodoInput on the TodoMutation builder.
+func (i *UpdateTodoInput) Mutate(m *TodoMutation) {
+	if v := i.Title; v != nil {
+		m.SetTitle(*v)
+	}
+	if v := i.Description; v != nil {
+		m.SetDescription(*v)
+	}
+	if v := i.IsDone; v != nil {
+		m.SetIsDone(*v)
+	}
+	if i.ClearOwner {
+		m.ClearOwner()
+	}
+	if v := i.OwnerID; v != nil {
+		m.SetOwnerID(*v)
+	}
+}
+
+// SetInput applies the change-set in the UpdateTodoInput on the TodoUpdate builder.
+func (c *TodoUpdate) SetInput(i UpdateTodoInput) *TodoUpdate {
+	i.Mutate(c.Mutation())
+	return c
+}
+
+// SetInput applies the change-set in the UpdateTodoInput on the TodoUpdateOne builder.
+func (c *TodoUpdateOne) SetInput(i UpdateTodoInput) *TodoUpdateOne {
+	i.Mutate(c.Mutation())
+	return c
+}
+
 // CreateUserInput represents a mutation input for creating users.
 type CreateUserInput struct {
 	UserName string
 	Password string
+	TodoIDs  []uuid.UUID
 }
 
 // Mutate applies the CreateUserInput on the UserMutation builder.
 func (i *CreateUserInput) Mutate(m *UserMutation) {
 	m.SetUserName(i.UserName)
 	m.SetPassword(i.Password)
+	if v := i.TodoIDs; len(v) > 0 {
+		m.AddTodoIDs(v...)
+	}
 }
 
 // SetInput applies the change-set in the CreateUserInput on the UserCreate builder.

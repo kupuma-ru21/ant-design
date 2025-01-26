@@ -1,0 +1,9 @@
+extend type Mutation {
+  createTodo(input: CreateTodoInput!, userName: String!): ID!
+  updateTodo(input: UpdateTodoInput!, id: ID!): ID!
+  deleteTodo(id: ID!): ID!
+}
+
+extend type Query {
+  todos(userName: String!): [Todo!]!
+}

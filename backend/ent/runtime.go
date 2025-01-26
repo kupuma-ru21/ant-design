@@ -4,6 +4,7 @@ package ent
 
 import (
 	"backend/ent/schema"
+	"backend/ent/todo"
 	"backend/ent/user"
 
 	"github.com/google/uuid"
@@ -13,6 +14,16 @@ import (
 // (default values, validators, hooks and policies) and stitches it
 // to their package variables.
 func init() {
+	todoFields := schema.Todo{}.Fields()
+	_ = todoFields
+	// todoDescIsDone is the schema descriptor for is_done field.
+	todoDescIsDone := todoFields[3].Descriptor()
+	// todo.DefaultIsDone holds the default value on creation for the is_done field.
+	todo.DefaultIsDone = todoDescIsDone.Default.(bool)
+	// todoDescID is the schema descriptor for id field.
+	todoDescID := todoFields[0].Descriptor()
+	// todo.DefaultID holds the default value on creation for the id field.
+	todo.DefaultID = todoDescID.Default.(func() uuid.UUID)
 	userFields := schema.User{}.Fields()
 	_ = userFields
 	// userDescUserName is the schema descriptor for user_name field.
