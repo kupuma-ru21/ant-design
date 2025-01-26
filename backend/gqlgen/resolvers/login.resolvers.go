@@ -20,5 +20,5 @@ func (r *mutationResolver) Login(ctx context.Context, input ent.CreateUserInput)
 	if u.Password != input.Password {
 		return "", errors.New("failed to login")
 	}
-	return u.ID.String(), nil
+	return u.UserName, nil
 }
