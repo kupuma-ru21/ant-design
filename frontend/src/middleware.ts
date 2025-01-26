@@ -3,8 +3,6 @@ import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  console.log("pathname", pathname);
-
   // Exclude static files (like CSS, JS, images, etc.) from middleware
   if (
     pathname.startsWith("/_next") ||

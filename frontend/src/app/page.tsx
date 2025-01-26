@@ -1,12 +1,16 @@
-"use client";
+import { TodosDocument } from "@/gql/graphql";
+import { apolloClient } from "@/utils/graphql";
 
-import React from "react";
-import { Button } from "antd";
+export default async function Home() {
+  const { data } = await apolloClient.query({
+    query: TodosDocument,
+    variables: { userName: "test2" },
+  });
+  console.log("data", data);
 
-const Home = () => (
-  <div>
-    <Button type="primary">Button</Button>
-  </div>
-);
+  if (data.todos.length === 0) {
+    return <div>No todos</div>;
+  }
 
-export default Home;
+  return null;
+}

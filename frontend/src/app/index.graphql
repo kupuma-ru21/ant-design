@@ -1,0 +1,8 @@
+query Todos($userName: String!) {
+  todos(userName: $userName) {
+    id
+    title
+    description
+    isDone
+  }
+}
