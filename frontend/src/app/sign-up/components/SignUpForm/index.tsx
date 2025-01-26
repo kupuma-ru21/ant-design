@@ -6,8 +6,14 @@ import { useSignUpForm } from "./useSignUpForm";
 import { Alert } from "antd";
 
 export const SignUpForm = () => {
-  const { userNameRef, passwordRef, confirmPasswordRef, error, signup } =
-    useSignUpForm();
+  const {
+    userNameRef,
+    passwordRef,
+    confirmPasswordRef,
+    error,
+    signup,
+    isSigningUp,
+  } = useSignUpForm();
 
   return (
     <>
@@ -41,7 +47,7 @@ export const SignUpForm = () => {
           <Password ref={confirmPasswordRef} />
         </FormItem>
 
-        <Button type="primary" htmlType="submit">
+        <Button type="primary" htmlType="submit" loading={isSigningUp}>
           Submit
         </Button>
       </Form>

@@ -1,6 +1,7 @@
 import { InputRef } from "antd";
-import { useRef, useState } from "react";
+import { useRef, useState, useTransition } from "react";
 import { signUpAction } from "./actions/sign-up-action";
+import { useRouter } from "next/navigation";
 
 export const useSignUpForm = () => {
   const userNameRef = useRef<InputRef>(null);
@@ -8,6 +9,8 @@ export const useSignUpForm = () => {
   const confirmPasswordRef = useRef<InputRef>(null);
 
   const [error, setError] = useState("");
+  const [isSigningUp, startTransition] = useTransition();
+  const router = useRouter();
   const signup = async () => {
     const userName = userNameRef.current?.input?.value ?? "";
     const password = passwordRef.current?.input?.value ?? "";
@@ -18,15 +21,25 @@ export const useSignUpForm = () => {
       return;
     }
 
-    try {
-      await signUpAction({ userName, password });
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error.message);
-        setError("Failed to sign up");
+    startTransition(async () => {
+      try {
+        await signUpAction({ userName, password });
+        router.push("/login");
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error(error.message);
+          setError("Failed to sign up");
+        }
       }
-    }
+    });
   };
 
-  return { userNameRef, passwordRef, confirmPasswordRef, error, signup };
+  return {
+    userNameRef,
+    passwordRef,
+    confirmPasswordRef,
+    error,
+    signup,
+    isSigningUp,
+  };
 };
