@@ -14,7 +14,7 @@ export const SignUpForm = () => {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        style={{ minWidth: 600, textAlign: "center", marginBottom: "1rem" }}
+        style={{ textAlign: "center", marginBottom: "1rem" }}
         initialValues={{ remember: true }}
         onFinish={login}
         autoComplete="off"

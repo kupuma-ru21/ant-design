@@ -19,9 +19,9 @@ export const SignUpForm = () => {
     <>
       <Form
         name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ minWidth: 600, textAlign: "center", marginBottom: "1rem" }}
+        labelCol={{ span: 10 }}
+        wrapperCol={{ span: 20 }}
+        style={{ textAlign: "center", marginBottom: "1rem" }}
         initialValues={{ remember: true }}
         onFinish={signup}
         autoComplete="off"
