@@ -1,7 +1,7 @@
 "use client";
 import { Button, Form, Input } from "antd";
 import FormItem from "antd/es/form/FormItem";
-import Password from "antd/es/input";
+import Password from "antd/es/input/Password";
 import { useSignUpForm } from "./useSignUpForm";
 import { Alert } from "antd";
 

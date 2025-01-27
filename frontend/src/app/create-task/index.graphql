@@ -1,0 +1,10 @@
+mutation CreateTodo(
+  $title: String!
+  $description: String!
+  $userName: String!
+) {
+  createTodo(
+    input: { title: $title, description: $description }
+    userName: $userName
+  )
+}

@@ -77,14 +77,14 @@ func main() {
 		log.Fatal("opening ent client", err)
 	}
 
-	// Configure the server and start listening on :8080.
+	// Configure the server and start listening on :8081.
 	srv := handler.NewDefaultServer(resolvers.NewSchema(client))
 	http.Handle("/",
 		playground.Handler("GraphQL playground", "/query"),
 	)
 	http.Handle("/query", srv)
-	log.Println("listening on http://localhost:8080")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	log.Println("listening on http://localhost:8081")
+	if err := http.ListenAndServe(":8081", nil); err != nil {
 		log.Fatal("http server terminated", err)
 	}
 }

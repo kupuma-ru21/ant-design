@@ -1,10 +1,9 @@
 import React from "react";
-import Typography from "antd/es/typography";
 import Title from "antd/es/typography/Title";
-import Text from "antd/es/typography/Text";
-import { Button, Layout, Space } from "antd";
+import { Button, Layout, Space, Typography } from "antd";
 import { SignUpForm } from "./components/SignUpForm";
 import Link from "next/link";
+import { Paragraph } from "@/libs/antd/Paragraph";
 
 const Login = () => {
   return (
@@ -22,7 +21,7 @@ const Login = () => {
       <SignUpForm />
       <Space>
         <Typography>
-          <Text>Create account?</Text>
+          <Paragraph>Create account?</Paragraph>
         </Typography>
         <Button>
           <Link href="/sign-up">Sign up</Link>

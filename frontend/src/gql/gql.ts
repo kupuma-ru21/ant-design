@@ -14,6 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+    "mutation CreateTodo($title: String!, $description: String!, $userName: String!) {\n  createTodo(\n    input: {title: $title, description: $description}\n    userName: $userName\n  )\n}": types.CreateTodoDocument,
     "query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}": types.TodosDocument,
     "mutation Login($input: CreateUserInput!) {\n  login(input: $input)\n}": types.LoginDocument,
     "mutation SignUp($input: CreateUserInput!) {\n  createUser(input: $input)\n}": types.SignUpDocument,
@@ -33,6 +34,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation CreateTodo($title: String!, $description: String!, $userName: String!) {\n  createTodo(\n    input: {title: $title, description: $description}\n    userName: $userName\n  )\n}"): (typeof documents)["mutation CreateTodo($title: String!, $description: String!, $userName: String!) {\n  createTodo(\n    input: {title: $title, description: $description}\n    userName: $userName\n  )\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
