@@ -22,7 +22,7 @@ export default async function Home() {
   if (!data) throw get404ErrorResponse("data");
 
   return (
-    <Layout style={{ padding: "1rem" }}>
+    <Layout style={{ padding: "1rem", height: "100%" }}>
       <Typography>
         <Title>Todos</Title>
       </Typography>
