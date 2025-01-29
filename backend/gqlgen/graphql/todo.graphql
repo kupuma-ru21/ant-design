@@ -6,4 +6,5 @@ extend type Mutation {
 
 extend type Query {
   todos(userName: String!): [Todo!]!
+  todo(id: ID!): Todo!
 }

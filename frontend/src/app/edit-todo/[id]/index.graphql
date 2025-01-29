@@ -1,3 +1,20 @@
-mutation UpdateTodo($title: String!, $description: String!, $id: ID!) {
-  updateTodo(input: { title: $title, description: $description }, id: $id)
+query Todo($id: ID!) {
+  todo(id: $id) {
+    id
+    title
+    description
+    isDone
+  }
+}
+
+mutation UpdateTodo(
+  $title: String
+  $description: String
+  $id: ID!
+  $isDone: Boolean
+) {
+  updateTodo(
+    input: { title: $title, description: $description, isDone: $isDone }
+    id: $id
+  )
 }

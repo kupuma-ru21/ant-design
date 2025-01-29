@@ -20,7 +20,7 @@ export function TodoCard({ id, ...rest }: CardProps & { id: string }) {
           disabled={isDeletingTodo}
         >
           <Link
-            href="/edit-todo/1"
+            href={`/edit-todo/${id}`}
             style={{
               height: "100%",
               alignContent: "center",

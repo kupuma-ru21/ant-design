@@ -1,13 +1,20 @@
 "use client";
-import { Button, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { useEditTodoForm } from "./useEditTodoForm";
 import { Alert } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { TodoQuery } from "@/gql/graphql";
 
-export const EditTodoForm = (props: { id: string }) => {
-  const { titleRef, descriptionRef, error, updateTodo, isUpdatingTodo } =
-    useEditTodoForm(props);
+export const EditTodoForm = ({ todo }: { todo: TodoQuery["todo"] }) => {
+  const {
+    titleRef,
+    descriptionRef,
+    doneRef,
+    error,
+    updateTodo,
+    isUpdatingTodo,
+  } = useEditTodoForm();
 
   return (
     <>
@@ -19,17 +26,23 @@ export const EditTodoForm = (props: { id: string }) => {
         labelCol={{ span: 6 }}
         onFinish={updateTodo}
       >
-        <FormItem
-          label="Title"
-          rules={[{ required: true, message: "Please input your title!" }]}
-        >
-          <Input style={{ width: "300px" }} ref={titleRef} />
+        <FormItem label="Title" rules={[{ required: false }]}>
+          <Input
+            style={{ width: "300px" }}
+            defaultValue={todo.title}
+            ref={titleRef}
+          />
         </FormItem>
-        <FormItem
-          label="Description"
-          rules={[{ required: true, message: "Please input your title!" }]}
-        >
-          <TextArea style={{ width: "300px" }} rows={10} ref={descriptionRef} />
+        <FormItem label="Description" rules={[{ required: false }]}>
+          <TextArea
+            style={{ width: "300px" }}
+            rows={10}
+            defaultValue={todo.description}
+            ref={descriptionRef}
+          />
+        </FormItem>
+        <FormItem label="Done" rules={[{ required: false }]}>
+          <Checkbox defaultChecked={todo.isDone} ref={doneRef} />
         </FormItem>
         <Button
           type="primary"

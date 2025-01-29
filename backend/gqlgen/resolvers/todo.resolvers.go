@@ -67,3 +67,8 @@ func (r *queryResolver) Todos(ctx context.Context, userName string) ([]*ent.Todo
 		Where(todo.HasOwnerWith(user.UserName(userName))).
 		All(ctx)
 }
+
+// Todo is the resolver for the todo field.
+func (r *queryResolver) Todo(ctx context.Context, id uuid.UUID) (*ent.Todo, error) {
+	return r.client.Todo.Query().Where(todo.ID(id)).Only(ctx)
+}
