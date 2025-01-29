@@ -6,7 +6,7 @@ import { Alert } from "antd";
 import TextArea from "antd/es/input/TextArea";
 
 export const CreateTodoForm = () => {
-  const { titleRef, descriptionRef, error, createTask, isCreatingTask } =
+  const { titleRef, descriptionRef, error, createTodo, isCreatingTodo } =
     useCreateTodoForm();
 
   return (
@@ -17,7 +17,7 @@ export const CreateTodoForm = () => {
         autoComplete="off"
         style={{ width: "fit-content", margin: "0 auto" }}
         labelCol={{ span: 6 }}
-        onFinish={createTask}
+        onFinish={createTodo}
       >
         <FormItem
           label="Title"
@@ -35,7 +35,7 @@ export const CreateTodoForm = () => {
           type="primary"
           htmlType="submit"
           style={{ display: "block", margin: "0 auto" }}
-          loading={isCreatingTask}
+          loading={isCreatingTodo}
         >
           Submit
         </Button>

@@ -15,7 +15,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "mutation CreateTodo($title: String!, $description: String!, $userName: String!) {\n  createTodo(\n    input: {title: $title, description: $description}\n    userName: $userName\n  )\n}": types.CreateTodoDocument,
-    "query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}": types.TodosDocument,
+    "mutation UpdateTodo($title: String!, $description: String!, $id: ID!) {\n  updateTodo(input: {title: $title, description: $description}, id: $id)\n}": types.UpdateTodoDocument,
+    "query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}\n\nmutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}": types.TodosDocument,
     "mutation Login($input: CreateUserInput!) {\n  login(input: $input)\n}": types.LoginDocument,
     "mutation SignUp($input: CreateUserInput!) {\n  createUser(input: $input)\n}": types.SignUpDocument,
 };
@@ -41,7 +42,11 @@ export function graphql(source: "mutation CreateTodo($title: String!, $descripti
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}"): (typeof documents)["query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}"];
+export function graphql(source: "mutation UpdateTodo($title: String!, $description: String!, $id: ID!) {\n  updateTodo(input: {title: $title, description: $description}, id: $id)\n}"): (typeof documents)["mutation UpdateTodo($title: String!, $description: String!, $id: ID!) {\n  updateTodo(input: {title: $title, description: $description}, id: $id)\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}\n\nmutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}"): (typeof documents)["query Todos($userName: String!) {\n  todos(userName: $userName) {\n    id\n    title\n    description\n    isDone\n  }\n}\n\nmutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

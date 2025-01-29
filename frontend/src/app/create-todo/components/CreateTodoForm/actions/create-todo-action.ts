@@ -16,7 +16,7 @@ export async function createTodoAction(
   }
   const { errors } = await apolloClient.mutate({
     mutation: CreateTodoDocument,
-    variables: { ...variables, userName: "test" },
+    variables: { ...variables, userName: userNameCookieStore.value },
   });
   if (errors) throw get500ErrorResponse(errors[0]);
 }

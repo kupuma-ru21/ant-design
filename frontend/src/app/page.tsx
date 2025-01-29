@@ -2,11 +2,12 @@ import { TodosDocument } from "@/gql/graphql";
 import { get404ErrorResponse } from "@/utils/error/get404ErrorResponse";
 import { get500ErrorResponse } from "@/utils/error/get500ErrorResponse";
 import { apolloClient } from "@/utils/graphql";
-import { Button, Card, Layout, Space, Typography } from "antd";
+import { Button, Layout, Space, Typography } from "antd";
 import Title from "antd/es/typography/Title";
 import Link from "next/link";
 import { getUserNameCookieStore } from "@/utils/getUserNameCookieStore";
 import { Paragraph } from "@/libs/antd/Paragraph";
+import { TodoCard } from "./components/TodoCard";
 
 export default async function Home() {
   const userNameCookieStore = await getUserNameCookieStore();
@@ -31,10 +32,10 @@ export default async function Home() {
         style={{ width: "fit-content", marginBottom: "24px", padding: "0" }}
       >
         <Link
-          href="/create-task"
+          href="/create-todo"
           style={{ height: "100%", alignContent: "center", padding: "0 15px" }}
         >
-          Create Task
+          Create Todo
         </Link>
       </Button>
       {data.todos.length === 0 ? (
@@ -59,7 +60,7 @@ export default async function Home() {
             {data.todos.map(
               ({ id, title, description, isDone }, index, self) => {
                 return (
-                  <Card
+                  <TodoCard
                     title={title}
                     extra={`${isDone ? "Done" : "Not Done"}`}
                     style={{
@@ -68,12 +69,13 @@ export default async function Home() {
                       marginBottom:
                         index === self.length - 1 ? "16px" : undefined,
                     }}
+                    id={id}
                     key={id}
                   >
                     <Paragraph style={{ width: "100%" }} ellipsis={{ rows: 3 }}>
                       {description}
                     </Paragraph>
-                  </Card>
+                  </TodoCard>
                 );
               }
             )}

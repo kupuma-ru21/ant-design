@@ -6,3 +6,7 @@ query Todos($userName: String!) {
     isDone
   }
 }
+
+mutation DeleteTodo($id: ID!) {
+  deleteTodo(id: $id)
+}

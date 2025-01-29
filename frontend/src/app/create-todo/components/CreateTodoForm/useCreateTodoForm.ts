@@ -9,9 +9,9 @@ export const useCreateTodoForm = () => {
   const descriptionRef = useRef<TextAreaRef>(null);
 
   const [error, setError] = useState("");
-  const [isCreatingTask, startTransition] = useTransition();
+  const [isCreatingTodo, startTransition] = useTransition();
   const router = useRouter();
-  const createTask = async () => {
+  const createTodo = () => {
     const title = titleRef.current?.input?.value ?? "";
     const description =
       descriptionRef.current?.resizableTextArea?.textArea.value ?? "";
@@ -33,7 +33,7 @@ export const useCreateTodoForm = () => {
     titleRef,
     descriptionRef,
     error,
-    createTask,
-    isCreatingTask,
+    createTodo,
+    isCreatingTodo,
   };
 };
