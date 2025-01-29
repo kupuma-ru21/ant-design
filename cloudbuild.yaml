@@ -18,7 +18,7 @@ steps:
       - --build-arg
       - GRAPHQL_SCHEMA_URL=${_GRAPHQL_SCHEMA_URL}
       - -t
-      - ${_IMAGE}
+      - ${_FRONTEND_IMAGE}
       - ./frontend
     automapSubstitutions: true
 
